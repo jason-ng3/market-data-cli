@@ -11,5 +11,6 @@ a paid plan, I used their test API key (indicated below) and test domain (sandbo
   - `npm run cli -- -v CoinMarketCap -p <BTC/USD>`
 
 ## Design
-1. I have an adapter module (`adapter.ts`), which acts as a flexible and unifed way to add new venues to the `gatherMarketData` function,
-each of which encapsulates the logic for fetching data from that particular API.  
+1. I wrote the CLI tool in TypeScript and used the commander npm package to create the CLI interface.
+2. I have an adapter module (`adapter.ts`), which acts as a flexible and unifed way to add new venues to the `gatherMarketData` function,
+each of which encapsulates the logic for fetching data from a given venue's API.
