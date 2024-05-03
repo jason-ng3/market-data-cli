@@ -19,6 +19,18 @@ const main = async () => {
   try {
     console.log('Program run time: ', timestamp);
 
+    // Validate the venue option
+    if (!['coinmarketcap'].includes(venue.toLowerCase())) {
+      console.error('Invalid venue. Supported venues: coinmarketcap');
+      process.exit(1);
+    }
+
+    // Validate the pair option
+    if (!/^[a-zA-Z]+\/[a-zA-Z]+$/i.test(pair)) {
+      console.error('Invalid pair format. The pair should be in the format "XXX/YYY"');
+      process.exit(1);
+    }
+
     // Gather market data
     console.log('Gathering market data...');
     const marketData = await gatherMarketData(venue.toLowerCase(), pair.toUpperCase());
