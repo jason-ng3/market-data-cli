@@ -1,15 +1,13 @@
 import { Document } from 'mongoose';
 
-// Interfaces for market data specific to each API
-interface CoinMarketCapMarketData {
+// Interfaces for market data
+export interface MarketData {
   open: number;
   high: number;
   low: number;
   close: number;
   volume: number;
 }
-
-export type MarketData = CoinMarketCapMarketData;
 
 // Interface for command-line options
 export interface CommandOptions {
