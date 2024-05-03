@@ -7,8 +7,10 @@ const MarketQuoteSchema = new Schema({
   data: Schema.Types.Mixed
 });
 
+// Define model to map to MarketQuote collection 
 const MarketQuoteModel: Model<MarketQuoteDocument> = mongoose.model('MarketQuote', MarketQuoteSchema);
 
+// Connect to MongoDB Atlas database
 export const connectToDatabase = async (): Promise<void>  => {
   const url = process.env.MONGODB_URI;
 
@@ -23,6 +25,7 @@ export const connectToDatabase = async (): Promise<void>  => {
   }
 };
 
+// Write data to MongoDB Atlas datbase
 export const writeToDatabase = async (data: any, timestamp: Date): Promise<void> => {
   try {
     const marketQuote = new MarketQuoteModel({ 
