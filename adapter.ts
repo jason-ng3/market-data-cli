@@ -27,7 +27,8 @@ export const gatherMarketData = async (venue: string, pair: string): Promise<Mar
       if (!marketData) {
         throw new Error('Invalid response received from Coinmarketcap API.');
       }
-  
+      
+      delete marketData.last_updated;
       return marketData;
     } else {
       throw new Error(`Unsupported venue: ${venue}`);

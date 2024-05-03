@@ -2,26 +2,33 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { program } from 'commander';
 import { gatherMarketData } from './adapter';
+import { connectToDatabase, writeToDatabase } from './database';
+import { CommandOptions } from './types';
 
-interface CommandOptions {
-  venue: string;
-  pair: string;
-}
-
+// Parse command-line parameters using commander
 program
   .option('-v, --venue <venue>', 'Specify the venue: Coinmarketcap')
   .option('-p, --pair <pair>', 'Specify the crypto pair (e.g., BTC/USD)')
   .parse(process.argv);
 
-
+// main function for starting CLI
 const main = async () => {
+  const timestamp = new Date();
   const { venue, pair } = program.opts<CommandOptions>();
 
   try {
+    console.log('Program run time: ', timestamp);
+
+    // Gather market data
     console.log('Gathering market data...');
     const marketData = await gatherMarketData(venue.toLowerCase(), pair.toUpperCase());
-    console.log('Market data retrieved successfully');
-    console.log(marketData);
+    console.log('Market quote: ', marketData);
+
+    // Connect and write to MongoDB Atlas
+    console.log('Writing data to database...');
+    await connectToDatabase();
+    await writeToDatabase(marketData, timestamp);
+    console.log('Data written to database successfully');
   } catch(error) {
     if (error instanceof Error) {
       console.error('An error occurred:', error.message);
@@ -30,4 +37,5 @@ const main = async () => {
   }
 }
 
+// Start the CLI
 main();
