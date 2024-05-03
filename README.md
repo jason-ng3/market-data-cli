@@ -3,8 +3,7 @@
   - `git clone https://github.com/jason-ng3/market-data-cli.git`
 2. Navigate to the root of each project directory and install dependencies: 
   - `npm install`
-3. Add MongoDB Atlas URI and CoinMarketCap API keys to an `.env` file in the `market-data-app/server` directory. Since OHLCV data from CoinMarketCap requires
-a paid plan, I used their test API key (indicated below) and test domain (sandbox-api.coinmarketcap.com). 
+3. Add MongoDB Atlas URI and CoinMarketCap API key to an `.env` file in the `market-data-app/server` directory. Since OHLCV data from CoinMarketCap requires a paid plan, I used their test API key (indicated below) and test domain (sandbox-api.coinmarketcap.com). 
   - `COINMARKETCAP_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c` 
   - `MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.<cluster-shard>.mongodb.net/<database>?retryWrites=true&w=majority`
 4. To run a command for fetching from CoinMarketCap for a crypto pair:
