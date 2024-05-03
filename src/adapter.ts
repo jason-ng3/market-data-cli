@@ -10,7 +10,8 @@ export const gatherMarketData = async (venue: string, pair: string): Promise<Mar
       if (!apiKey) {
         throw new Error('Please provide a valid CoinMarketCap API key.');
       }
-  
+      
+      // Call CoinMarketCap API to fetch market data
       const [symbol, convert] = pair.split('/');
       const response = await axios.get(COINMARKETCAP_API_URL, {
         params: {

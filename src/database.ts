@@ -1,6 +1,7 @@
 import mongoose, { Model, Schema } from 'mongoose';
 import { MarketQuoteDocument } from './types';
 
+// Define schema for MarketQuote document
 const MarketQuoteSchema = new Schema({
   timestamp: { type: Date, default: null },
   data: Schema.Types.Mixed
