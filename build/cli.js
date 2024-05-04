@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const commander_1 = require("commander");
-const adapter_1 = require("./adapter");
+const coinmarketcap_1 = require("./coinmarketcap");
 const database_1 = require("./database");
 // Parse command-line parameters using commander
 commander_1.program
@@ -28,25 +28,36 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const { venue, pair } = commander_1.program.opts();
     try {
         console.log('Program run time: ', timestamp);
-        // Validate the venue option
-        if (!['coinmarketcap'].includes(venue.toLowerCase())) {
-            console.error('Invalid venue. Supported venues: coinmarketcap');
-            process.exit(1);
-        }
         // Validate the pair option
         if (!/^[a-zA-Z]+\/[a-zA-Z]+$/i.test(pair)) {
             console.error('Invalid pair format. The pair should be in the format "XXX/YYY"');
             process.exit(1);
         }
-        // Gather market data
-        console.log('Gathering market data...');
-        const marketData = yield (0, adapter_1.gatherMarketData)(venue.toLowerCase(), pair.toUpperCase());
-        console.log('Market quote: ', marketData);
-        // Connect and write to MongoDB Atlas
-        console.log('Writing data to database...');
-        yield (0, database_1.connectToDatabase)();
-        yield (0, database_1.writeToDatabase)(marketData, timestamp);
-        console.log('Data written to database successfully');
+        // Validate the venue option
+        let adapter;
+        switch (venue.toLowerCase()) {
+            case 'coinmarketcap':
+                const apiKey = process.env.COINMARKETCAP_API_KEY;
+                if (!apiKey) {
+                    throw new Error('Please provide a valid CoinMarketCap API key.');
+                }
+                adapter = new coinmarketcap_1.CoinMarketCapAdapter(apiKey, pair);
+                break;
+            default:
+                console.error(`Unsupported venue: ${venue}`);
+                process.exit(1);
+        }
+        if (adapter) {
+            // Gather market data
+            console.log('Gathering market data...');
+            const marketData = yield adapter.gatherMarketData();
+            console.log('Market quote: ', marketData);
+            // Connect and write to MongoDB Atlas
+            console.log('Writing data to database...');
+            yield (0, database_1.connectToDatabase)();
+            yield (0, database_1.writeToDatabase)(marketData, timestamp);
+            console.log('Data written to database successfully');
+        }
     }
     catch (error) {
         if (error instanceof Error) {
