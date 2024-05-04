@@ -2,7 +2,6 @@ import axios from 'axios';
 
 export interface ApiConnectorConfig {
   baseUrl: string;
-  apiKey: string;
   params?: { [key: string]: string | number };
   headers?: { [key: string]: string };
 }
@@ -15,6 +14,7 @@ export class ApiConnector {
   }
 
   async get(): Promise<any> {
+    console.log(this.config);
     const response = await axios.get(this.config.baseUrl, {
       params: this.config.params, 
       headers: {
