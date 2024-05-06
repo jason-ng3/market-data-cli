@@ -8,6 +8,7 @@ interface Adapters {
   derabit: typeof DerabitAdapter;
 }
 
+// Mapping of adapter names to their implementations
 export const adapters: Adapters = {
   coinmarketcap: CoinMarketCapAdapter,
   sfox: SfoxAdapter,

@@ -11,4 +11,10 @@
 
 ## Design
 1. I wrote the CLI tool in TypeScript and used the commander npm package to create the CLI interface.
-2. I 
+2. The integrations with each API source (CoinMarketCap, sFox, Derabit) are located in the `src/adapters` directory.
+  - Each "adapter" implements the Adapter interface, for which each adapter authenticates (if necessary) and gathers market data via `gatherMarketData()` and does light parsing of the response via `parseResponse()`. 
+  - Each adapter also instantiates an instance of API Connector, the state of which contains the adapter's dependencies (endpoint URL, query paramaters, headers) and the behavior of which fetches the data with those dependencies. 
+  - The `src/adapters` directory also contains `adapterRegistry.ts`, which contains a lookup table to map between data sources and their corresponding adapter implementations. Now, we have a centralized place for managing and selecting adapters without having to make any changes to the main CLI program code.
+3. Any newly data source now only requires:
+  - Adding a new entry to the adapter registry.  
+  - Creating a new adapter implementation, based on the Adapter interface.
