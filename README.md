@@ -7,7 +7,7 @@
   - `COINMARKETCAP_API_KEY=b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c` 
   - `MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.<cluster-shard>.mongodb.net/<database>?retryWrites=true&w=majority`
 4. To run a command for fetching/writing data for a crypto pair:
-  - `npm run cli -- -v CoinMarketCap -p <BTC/USD>`
+  - `npm run cli -- -v CoinMarketCap -p BTC/USD`
   - `npm run cli -- -v derabit -p BTC_USDC-PERPETUAL -s 1704012800000 -e 1704099199000 -i 3`
   - `npm run cli -- -v sfox -p btcusd -s 1657217002 -e 1665165809 -i 86400`
 
