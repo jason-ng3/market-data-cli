@@ -5,7 +5,6 @@ import { adapters } from './adapters/adapterRegistry';
 import { connectToDatabase, writeToDatabase } from './database';
 import { CommandOptions } from './types';
 
-
 // Parse command-line parameters using commander
 program
   .option('-v, --venue <venue>', 'Specify the venue: Coinmarketcap')
@@ -23,28 +22,22 @@ const main = async () => {
   try {
     console.log('Program run time: ', timestamp);
 
-    // Validate the pair option
-    if (!/^[a-zA-Z]+\/[a-zA-Z]+$/i.test(pair)) {
-      console.error('Invalid pair format. The pair should be in the format "XXX/YYY"');
-      process.exit(1);
-    }
-
     // Validate the venue option
     let adapter;
-    if (adapters[venue.toLowerCase()]) {
-      adapter = new adapters[venue.toLowerCase()](pair, startTime, endTime, interval);
+    const venueKey = venue.toLowerCase();
+    if (venueKey in adapters) {
+      const AdapterClass = (adapters as Record<string, any>)[venueKey];
+      adapter = new AdapterClass(pair, startTime, endTime, interval);
     } else {
       console.error(`Unsupported venue: ${venue}`);
       process.exit(1);
     }
 
-
     if (adapter) {
       // Gather market data
       console.log('Gathering market data...');
       const marketData = await adapter.gatherMarketData();
-      console.log(marketData);
-      console.log('Market quote: ', marketData);
+      console.log('Market data: ', marketData);
 
       // Connect and write to MongoDB Atlas
       console.log('Writing data to database...');

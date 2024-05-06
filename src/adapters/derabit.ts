@@ -1,17 +1,17 @@
 import { ApiConnector } from "../api-connector";
 import { AdapterInterface } from "../types";
 
-export class SfoxAdapter implements AdapterInterface {
+export class DerabitAdapter implements AdapterInterface {
   private apiConnector: ApiConnector
 
-  constructor(pair: string, startTime: string, endTime: string, interval: number = 60) {
+  constructor(pair: string, startTime: string, endTime: string, interval: string) {
     this.apiConnector = new ApiConnector({
-      baseUrl: 'https://chartdata.sfox.com/candlesticks',
+      baseUrl: 'https://test.deribit.com/api/v2/public/get_tradingview_chart_data',
       params: { 
-        pair, 
-        startTime, 
-        endTime, 
-        period: interval, 
+        instrument_name: pair, 
+        start_timestamp: startTime, 
+        end_timestamp: endTime, 
+        resolution: interval 
       },
     });
   }
@@ -22,6 +22,6 @@ export class SfoxAdapter implements AdapterInterface {
   }
 
   parseResponse(response: any): any {
-    return response.data;
+    return response.data.result;
   }
 }
