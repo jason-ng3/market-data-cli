@@ -13,5 +13,5 @@
   },
   "include": [
     "src/**/*.ts"
-, "../market-data-backup/adapter.ts", "src/adapters/derabit.ts"  ]
+  ]
 }
