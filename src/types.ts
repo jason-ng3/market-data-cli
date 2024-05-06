@@ -6,6 +6,13 @@ export interface AdapterInterface {
   parseResponse(response: any): any;
 }
 
+// Interface for API Connector configuration
+export interface ApiConnectorConfig {
+  baseUrl: string;
+  params?: { [key: string]: string | number };
+  headers?: { [key: string]: string };
+}
+
 // Interface for command-line options
 export interface CommandOptions {
   venue: string;

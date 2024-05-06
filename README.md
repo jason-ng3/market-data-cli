@@ -11,5 +11,4 @@
 
 ## Design
 1. I wrote the CLI tool in TypeScript and used the commander npm package to create the CLI interface.
-2. I have an adapter module (`adapter.ts`), which acts as a flexible and unifed way to add new venues to the `gatherMarketData` function,
-each of which encapsulates the logic for fetching data from a given venue's API.
+2. I 

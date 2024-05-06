@@ -1,10 +1,5 @@
 import axios from 'axios';
-
-export interface ApiConnectorConfig {
-  baseUrl: string;
-  params?: { [key: string]: string | number };
-  headers?: { [key: string]: string };
-}
+import { ApiConnectorConfig } from './types';
 
 export class ApiConnector {
   private config: ApiConnectorConfig
