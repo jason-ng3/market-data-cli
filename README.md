@@ -11,7 +11,7 @@
   - `npm run cli -- -v derabit -p BTC_USDC-PERPETUAL -s 1704012800000 -e 1704099199000 -i 3`
   - `npm run cli -- -v sfox -p btcusd -s 1657217002 -e 1665165809 -i 86400`
 
-  Note: I do not do any input validation. The program currently assumes the user imput's paramaters are in the correct format.
+  Note: I do not do any input validation. The program currently assumes the user input's paramaters are in the correct format.
 
 ## Design
 1. I wrote the CLI tool in TypeScript and used the commander npm package to create the CLI interface.
