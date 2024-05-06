@@ -8,6 +8,7 @@ export interface AdapterInterface {
 
 // Interface for API Connector configuration
 export interface ApiConnectorConfig {
+  apiKey?: string;
   baseUrl: string;
   params?: { [key: string]: string | number };
   headers?: { [key: string]: string };
